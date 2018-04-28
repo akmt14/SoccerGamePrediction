@@ -2,7 +2,7 @@
 title: "Bayesian Model Analysis of English Premier League"
 author: "Akshay Kamath, Purvi Thakor"
 date: "April 7, 2018"
-output: pdf_document
+output: md_document
 ---
 
 ### Problem Definition & Motivation:

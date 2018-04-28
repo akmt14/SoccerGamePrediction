@@ -1,0 +1,25 @@
+
+model
+{
+
+  #Prior Dist for Abilities
+  for (i in 1:20)
+  {
+  log_ability[i]~dnorm(0,1)
+  ability[i] <- exp(log_ability[i])
+  }
+
+  #Likelihood/ Sampling Distribution (implementing the Bradley-Terry Model Assumption)
+  for (i in 1:304)
+  {
+  prob[i] <- ability[Home_Code[i]]/(ability[Home_Code[i]]+ability[Away_Code[i]])
+  Win_H[i]~dbin(prob[i],1)
+  }
+
+  # Home Team's winning probability 
+  # Here, we are predicting the probability of the home team (#6 Crystal Palace) winning against the away team (#10 Liverpool)  
+
+  prob_next <- ability[6]/(ability[6]+ability[10])
+  home_win~dbin(prob_next,1)
+  }
+

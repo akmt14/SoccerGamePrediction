@@ -1,0 +1,25 @@
+
+model
+{
+  #Hyperparameter
+  
+  diversity ~ dunif(0,2)
+  
+  #Prior Dist for Abilities
+  for (i in 1:20)
+  {
+  log_ability[i]~dnorm(0,1/diversity^2)
+  ability[i] <- exp(log_ability[i])
+  }
+  
+  #Likelihood/ Sampling Distribution (implementing the Bradley Terry Model Assumption)
+  for (i in 1:304)
+  {
+  prob[i] <- ability[Home_Code[i]]/(ability[Home_Code[i]]+ability[Away_Code[i]])
+  Win_H[i]~dbin(prob[i],1)
+  }
+  
+  prob_next <- ability[6]/(ability[6]+ability[10])
+  home_win~dbin(prob_next,1)
+}
+
